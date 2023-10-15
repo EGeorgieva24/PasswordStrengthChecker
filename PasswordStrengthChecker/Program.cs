@@ -118,7 +118,4 @@ static Boolean SpecialChecker(string a)
     }
         return specialIs;
 }
-    }
-    return true;
-}
-
+  
