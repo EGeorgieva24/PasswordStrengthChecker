@@ -1,77 +1,123 @@
-﻿Console.WriteLine("Hello friend, give me your password and I will tell you if it's any good!");
-string password = Console.ReadLine();
 
-if (LengthChecker(password) && UpperCaseChecker(password) && LowerCaseChecker(password) && NumberChecker(password))
+string password;
+Boolean something;
+do
 {
-    Console.WriteLine("Yey, your password is legit!");
+    {
+        something = true;
+        Console.WriteLine("Hello friend, give me a password and I will tell you if it's any good!");
+        password = Console.ReadLine();
+
+        if (!LengthChecker(password))
+        {
+            something = false;
+            Console.WriteLine("Not long enough, has to be 8 character silly");
+        }
+        if (!UpperCaseChecker(password))
+        {
+            something = false;
+            Console.WriteLine("No capital letters? Not funny");
+        }
+        if (!LowerCaseChecker(password))
+        {
+            something = false;
+            Console.WriteLine("No lowercase letters? Not funny");
+        }
+        if (!NumberChecker(password))
+        {
+            something = false;
+            Console.WriteLine("No numbers? Not funny");
+        }
+        if (!SpecialChecker(password))
+        {
+            something = false;
+            Console.WriteLine("Repeating special characters or no special characters? Didn't laugh");
+        }
+        Console.WriteLine();
+
+    }
+
 }
-else
-{
-    Console.WriteLine("try again :D");
-    password = Console.ReadLine();
-}
+while (!something);
+Console.WriteLine("Good job, you finally got it :D!");
 
 
 static Boolean LengthChecker(string a)
 {
     if (a.Length < 8)
     {
-        Console.WriteLine("Not funny, has to be more than 8 characters silly");
             return false;
     }
     else
-        Console.WriteLine("Nice! You did type enough characters");
-        return true;
+        Console.WriteLine();
+    return true;
+
 }
 
 //works until here
 static Boolean UpperCaseChecker(string a)
 {
   
-    for (int i = 0; i < a.Length; i++)
+    foreach (char letter in a)
     {
-        if (char.IsUpper(a[i]))
+        if (char.IsUpper(letter))
         {
-            Console.WriteLine("Yey you have capital letters");
             return true;
         }
-        else
-            Console.WriteLine("NO capital letters? NOt funny my guy");
-        return false;
     }
-    return true;
+    
+    Console.WriteLine();
+    return false;
+    
 }
 
 static Boolean LowerCaseChecker(string a)
 {
 
-    for (int i = 0; i < a.Length; i++)
+    foreach (char letter in a)
     {
-        if (char.IsLower(a[i]))
+        if (char.IsLower(letter))
         {
-            Console.WriteLine("Yey you have lowercase letters");
             return true;
         }
-        else
-            Console.WriteLine("NO lowercase letters? NOt funny my guy");
-            return false;
     }
-    return true;
+    Console.WriteLine();
+    return false;
 }
 
 static Boolean NumberChecker(string a)
 {
 
-    for (int i = 0; i < a.Length; i++)
+    foreach (char number in a)
     {
-        if (char.IsNumber(a[i]))
+        if (char.IsDigit(number))
         {
-            Console.WriteLine("Yey you have numbers");
             return true;
         }
-        else
-            Console.WriteLine("NO numbers? NOt funny my guy");
-        return false;
+    }
+    Console.WriteLine();
+
+    return false;
+}
+
+static Boolean SpecialChecker(string a)
+{
+    char previous = 'a';
+    Boolean specialIs = false;
+    foreach (char special in a)
+    {
+        if (!Char.IsLetterOrDigit(special))
+        {
+            specialIs = true;
+            if (previous == special)
+            {
+                return false;
+            }
+        }
+        previous = special;
+    }
+        return specialIs;
+}
     }
     return true;
 }
